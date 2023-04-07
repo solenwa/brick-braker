@@ -15,17 +15,17 @@ window.addEventListener('load', () => {
   const ballRadius = 20
   const paddleWidth = 100
   const paddleHeight = 20
-  const paddleSpeed = 2
+  const paddleSpeed = 6
 
   let paddleX = canvas.width / 2 - paddleWidth / 2
 
   let isMovingLeft = false
   let isMovingRight = false
 
-  let ballX = 100
-  let ballY = 100
-  let ballSpeedX = 2
-  let ballSpeedY = 2
+  let ballX = paddleX + paddleWidth/ 2
+  let ballY = canvas.height - paddleHeight - ballRadius*2
+  let ballSpeedX = 5
+  let ballSpeedY = 5
 
   let score = 0
   let gameOver = false
@@ -51,24 +51,28 @@ window.addEventListener('load', () => {
   }
 
   class Brick {
-    constructor (x, y) {
+    constructor (x, y, z) {
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 50;
-        this.counter = 0;
+        this.width = 45;
+        this.height = 45;
+        this.counter = z;
     }
 
-    //ctx.font = '48px sans-serif'
-    //ctx.fillText(`${this.counter}`, this.width/2, this.height/2)
-
     move() {
-        this.y +=1
+        if (ballY > canvas.height - paddleHeight - ballRadius &&
+            ballX > paddleX &&
+            ballX < paddleX + paddleWidth) {
+                this.y +=45
+        }
     }
 
     draw() {
         ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.font = '24px sans-serif'
+        ctx.fillText(this.counter, this.x, this.y)
+        this.counter = Math.floor(Math.random() * 3)
     }
 
     checkCollision() {
@@ -78,6 +82,7 @@ window.addEventListener('load', () => {
             ballY + ballRadius > this.y
         ) {
             this.counter -= 1
+            ballSpeedX *= -1
             score += 1
 
             //if (counter = 0) {
@@ -122,8 +127,10 @@ window.addEventListener('load', () => {
 
     bricks = bricksStillInScreen
 
-    if (animateId % 100 === 0) {
-        bricks.push(new Brick(Math.random() * canvas.width, Math.random() * canvas.height/5))
+    if (ballY > canvas.height - paddleHeight - ballRadius &&
+        ballX > paddleX &&
+        ballX < paddleX + paddleWidth) {
+            bricks.push(new Brick(Math.random() * (canvas.width-45), 0))
     }
 
 
