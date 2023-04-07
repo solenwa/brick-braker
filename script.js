@@ -138,9 +138,7 @@ window.addEventListener('load', () => {
         ballX < paddleX + paddleWidth
       ) {
         ballY -= 1
-        ballSpeedY *= -1.5
-        paddleWidth *= 0.9
-        score += 1
+        ballSpeedY *= -1
       }
     // Bounce off left wall
     if (ballX < ballRadius) {
