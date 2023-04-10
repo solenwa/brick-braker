@@ -51,12 +51,12 @@ window.addEventListener('load', () => {
   }
 
   class Brick {
-    constructor (x, y, z) {
+    constructor (x, y) {
         this.x = x;
         this.y = y;
-        this.width = 45;
-        this.height = 45;
-        this.counter = z;
+        this.width = 35;
+        this.height = 35;
+        this.counter = 2;
     }
 
     move() {
@@ -72,21 +72,21 @@ window.addEventListener('load', () => {
         ctx.fillRect(this.x, this.y, this.width, this.height)
         ctx.font = '24px sans-serif'
         ctx.fillText(this.counter, this.x, this.y)
-        this.counter = Math.floor(Math.random() * 3)
     }
 
     checkCollision() {
-        if (ballX < this.x + this.width &&
-            ballX + ballRadius > this.x &&
-            ballY < this.y + this.height &&
-            ballY + ballRadius > this.y
+        if (ballX - ballRadius < this.x + this.width &&
+            ballX > this.x &&
+            ballY - ballRadius < this.y + this.height &&
+            ballY > this.y
         ) {
-            this.counter -= 1
             ballSpeedX *= -1
+            ballSpeedY *= -1
             score += 1
+            this.counter -=1
 
-            //if (counter = 0) {
-                //remove brick
+            //if (this.counter == 0) {
+            //    clearRect(this.x, this.y, this.width, this.height)
             //}
         }
 
@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
         brick.checkCollision()
 
         // if a brick touches the floor
-        if (brick.y >= canvas.height - brick.height) {
+        if (brick.y >= canvas.height) {
             gameOver = true
             console.log('Game Over: a brick touched the floor')
         }
@@ -130,28 +130,27 @@ window.addEventListener('load', () => {
     if (ballY > canvas.height - paddleHeight - ballRadius &&
         ballX > paddleX &&
         ballX < paddleX + paddleWidth) {
-            bricks.push(new Brick(Math.random() * (canvas.width-45), 0))
+            bricks.push(new Brick(Math.random() * (canvas.width-45), 3))
     }
 
 
-    // Bounce off right wall
+    // Ball bounces off right wall
     if (ballX > canvas.width - ballRadius) {
       ballSpeedX *= -1
     }
-    // Bounce off paddle
+    // Ball bounces off paddle
     if (
         ballY > canvas.height - paddleHeight - ballRadius &&
         ballX > paddleX &&
-        ballX < paddleX + paddleWidth
-      ) {
-        ballY -= 1
+        ballX < paddleX + paddleWidth + ballRadius
+      ) {        
         ballSpeedY *= -1
       }
-    // Bounce off left wall
+    // Ball bounces off left wall
     if (ballX < ballRadius) {
       ballSpeedX *= -1
     }
-    // Bounce off ceiling
+    // Ball bounces off ceiling
     if (ballY < ballRadius) {
       ballSpeedY *= -1
     }
@@ -195,17 +194,15 @@ window.addEventListener('load', () => {
   restartBtn.addEventListener('click', () => {
     restartBtn.style.display = 'none'
 
-    paddleWidth = 100
-
     paddleX = canvas.width / 2 - paddleWidth / 2
 
     isMovingLeft = false
     isMovingRight = false
 
-    ballX = 100
-    ballY = 100
-    ballSpeedX = 2
-    ballSpeedY = 2
+    ballX = paddleX + paddleWidth/ 2
+    ballY = canvas.height - paddleHeight - ballRadius*2
+    ballSpeedX = 5
+    ballSpeedY = 5
 
     score = 0
     gameOver = false
