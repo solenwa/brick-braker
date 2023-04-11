@@ -240,7 +240,7 @@ window.addEventListener('load', () => {
     if (gameOver) {
       cancelAnimationFrame(animateId)
       ctx.font = '48px sans-serif'
-      ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 3)
+      ctx.fillText('GAME OVER TEST', canvas.width / 2 - 150, canvas.height / 3)
       restartBtn.style.display = 'block'
     } else {
       animateId = requestAnimationFrame(animate)
