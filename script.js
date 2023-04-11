@@ -50,7 +50,7 @@ window.addEventListener('load', () => {
   // BALL
   const drawBall = () => {
     ctx.beginPath()
-    ctx.fillStyle = 'red'
+    ctx.fillStyle = '#03045E'
     // x, y, radius, startAngle, endAngle
     ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2)
     ctx.fill()
