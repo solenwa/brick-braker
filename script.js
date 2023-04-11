@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
   
   // PADDLE
   const bgImg = new Image()
-  bgImg.src = '/background.jpg'
+  bgImg.src = 'background.jpg'
   const ballRadius = 20
   const paddleWidth = 100
   const paddleHeight = 20
