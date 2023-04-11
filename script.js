@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
   let paddleY = canvas.height - paddleHeight*2
 
   // BALL INFO
-  const ballRadius = 15
+  const ballRadius = 12
   let ballX = paddleX + paddleWidth/ 2
   let ballY = paddleY - ballRadius*2
   let ballSpeedX = 5
@@ -239,8 +239,9 @@ window.addEventListener('load', () => {
     // Game Over
     if (gameOver) {
       cancelAnimationFrame(animateId)
+      ctx.fillStyle = 'black'
       ctx.font = '48px sans-serif'
-      ctx.fillText('GAME OVER TEST', canvas.width / 2 - 150, canvas.height / 3)
+      ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 3)
       restartBtn.style.display = 'block'
     } else {
       animateId = requestAnimationFrame(animate)
