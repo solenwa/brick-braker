@@ -21,8 +21,13 @@ body {
     width: 25vw;
 }
 
+canvas {
+
+}
+
 #restartPage {
     position: absolute;
+    z-index: 3;
 }
 
 #restart {
@@ -33,5 +38,19 @@ body {
     padding: 5% 2%;
     width: 25vw;
     
+}
+
+#audio-info {
+    position: absolute;
+    z-index: 9;
+    top: 22px;
+    right: 165px;
+    width: 100px;
+    height: 100px;
+}
+
+#mute-button {
+    border: none;
+    background-color: black;
 }
 

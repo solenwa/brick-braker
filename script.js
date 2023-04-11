@@ -6,13 +6,19 @@ window.addEventListener('load', () => {
 
   const startBtn = document.querySelector('#start')
   const restartBtn = document.querySelector('#restart')
+  const muteBtn = document.querySelector('#mute-button')
 
   canvas.style.display = 'none'
   restartBtn.style.display = 'none'
+  muteBtn.style.display = 'none'
   
   // BACKGROUND INFO
   const bgImg = new Image()
-  bgImg.src = './background.jpg'
+  bgImg.src = './images/background.jpg'
+
+  // SOUND INFO
+  const audio = new Audio("/Justin Mahar - Pumped.mp3")
+  audio.loop = true;
 
   // PADDLE INFO
   const paddleWidth = 100
@@ -132,6 +138,7 @@ window.addEventListener('load', () => {
     ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height)
     drawBall()
     drawPaddle()
+    
 
     let bricksStillInScreen = []
 
@@ -243,6 +250,7 @@ window.addEventListener('load', () => {
       ctx.font = '48px sans-serif'
       ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 3)
       restartBtn.style.display = 'block'
+      audio.pause()
     } else {
       animateId = requestAnimationFrame(animate)
     }
@@ -252,7 +260,9 @@ window.addEventListener('load', () => {
   const start = () => {
     startBtn.style.display = 'none'
     canvas.style.display = 'block'
+    muteBtn.style.display = 'block'
     animate()
+    audio.play()
   }
 
   startBtn.addEventListener('click', start)
@@ -297,4 +307,8 @@ window.addEventListener('load', () => {
       isMovingRight = false
     }
   })
+
+  // MUTE FUNCTION
+  muteBtn.addEventListener('click', () => {audio.pause()})
+
 })
