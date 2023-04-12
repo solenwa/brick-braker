@@ -20,7 +20,6 @@ window.addEventListener('load', () => {
   // SOUND INFO
   const audio = new Audio("./media/Justin Mahar - Pumped.mp3")
   audio.loop = true;
-  audio.play()
 
   // PADDLE INFO
   const paddleWidth = 100
@@ -125,6 +124,14 @@ window.addEventListener('load', () => {
               ballSpeedY *= -1
               score += 1
               this.counter -=1
+
+              // Conditions to fix bugs on collision
+              if (ballSpeedX > 0){
+                ballX -=1
+              }
+              if (ballSpeedX < 0){
+                ballX +=1
+              }
         }
       
     }
@@ -217,6 +224,7 @@ window.addEventListener('load', () => {
         ballX > paddleX &&
         ballX < paddleX + paddleWidth) {
       ballSpeedY *= -1
+      ballY -= 2
       }
     // Ball bounces off left wall
     if (ballX < ballRadius) {
@@ -252,7 +260,7 @@ window.addEventListener('load', () => {
     ctx.font = '15px sans-serif'
     ctx.fillText('SCORE', canvas.width / 2.19, 23)
     ctx.font = '24px sans-serif'
-    ctx.fillText(score, canvas.width / 2, 47)
+    ctx.fillText(score, (canvas.width / 2) - 5, 47)
     ctx.closePath()
 
     // Game Over
@@ -278,7 +286,11 @@ window.addEventListener('load', () => {
     
   }
 
-  startBtn.addEventListener('click', start)
+  startBtn.addEventListener('click', () => {
+    start()
+    audio.play()
+  }
+    )
 
   restartBtn.addEventListener('click', () => {
     restartBtn.style.display = 'none'
