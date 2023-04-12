@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
   bgImg.src = './images/background.jpg'
 
   // SOUND INFO
-  const audio = new Audio("/Justin Mahar - Pumped.mp3")
+  const audio = new Audio("./Justin Mahar - Pumped.mp3")
   audio.loop = true;
 
   // PADDLE INFO
