@@ -33,7 +33,8 @@ body {
 }
 
 canvas {
-
+    width: auto;
+    height: 95%;
 }
 
 #restartPage {
