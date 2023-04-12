@@ -277,7 +277,6 @@ window.addEventListener('load', () => {
     startPage.style.display = 'none'
     canvas.style.display = 'block'
     muteBtn.style.display = 'block'
-    muteBtn.style.filter = 'grayscale(60%)'
     animate()
     
   }
@@ -334,10 +333,10 @@ window.addEventListener('load', () => {
     isMuted = !isMuted
     if(isMuted) {
       audio.pause()
-      muteBtn.display.filter = 'grayscale(0)'
+      muteBtn.setAttribute("style", "filter: brightness(1)")
     } else {
       audio.play()
-      muteBtn.display.filter = 'grayscale(60%)'
+      muteBtn.setAttribute("style", "filter: brightness(0.5)")
     }  
   })
 
