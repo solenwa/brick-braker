@@ -4,6 +4,7 @@ window.addEventListener('load', () => {
 
   const ctx = canvas.getContext('2d')
 
+  const startPage = document.querySelector('#startPage')
   const startBtn = document.querySelector('#start')
   const restartBtn = document.querySelector('#restart')
   const muteBtn = document.querySelector('#mute-button')
@@ -14,11 +15,12 @@ window.addEventListener('load', () => {
   
   // BACKGROUND INFO
   const bgImg = new Image()
-  bgImg.src = './media/background.jpg'
+  bgImg.src = './media/Space Background.png'
 
   // SOUND INFO
   const audio = new Audio("./media/Justin Mahar - Pumped.mp3")
   audio.loop = true;
+  audio.play()
 
   // PADDLE INFO
   const paddleWidth = 100
@@ -50,16 +52,20 @@ window.addEventListener('load', () => {
     // xPos, yPos, width, height
     ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight)
     ctx.fill()
+    ctx.strokeStyle = "black";
+    ctx.stroke();
     ctx.closePath()
   }
 
   // BALL
   const drawBall = () => {
     ctx.beginPath()
-    ctx.fillStyle = '#03045E'
+    ctx.fillStyle = '#0077b6'
     // x, y, radius, startAngle, endAngle
     ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2)
     ctx.fill()
+    ctx.strokeStyle = "black";
+    ctx.stroke();
     ctx.closePath()
   }
 
@@ -98,9 +104,13 @@ window.addEventListener('load', () => {
             break;          
     }
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1;
+        ctx.stroke();
         ctx.fillStyle = "black";
         ctx.font = '24px sans-serif';
         ctx.fillText(this.counter, this.x + this.width/3, this.y + this.height*0.7);
+        
     }
 
 
@@ -239,16 +249,18 @@ window.addEventListener('load', () => {
     ctx.rect(0, 0, canvas.width, 56)
     ctx.fill()
     ctx.fillStyle = 'white'
+    ctx.font = '15px sans-serif'
+    ctx.fillText('SCORE', canvas.width / 2.19, 23)
     ctx.font = '24px sans-serif'
-    ctx.fillText(score, canvas.width / 2, 35)
+    ctx.fillText(score, canvas.width / 2, 47)
     ctx.closePath()
 
     // Game Over
     if (gameOver) {
       cancelAnimationFrame(animateId)
-      ctx.fillStyle = 'black'
+      ctx.fillStyle = 'white'
       ctx.font = '48px sans-serif'
-      ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 3)
+      ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 2.5)
       restartBtn.style.display = 'block'
       audio.pause()
     } else {
@@ -258,11 +270,12 @@ window.addEventListener('load', () => {
 
   // START FUNCTION
   const start = () => {
-    startBtn.style.display = 'none'
+    startPage.style.display = 'none'
     canvas.style.display = 'block'
     muteBtn.style.display = 'block'
+    muteBtn.filter = 'grayscale(60%)'
     animate()
-    audio.play()
+    
   }
 
   startBtn.addEventListener('click', start)
@@ -309,6 +322,9 @@ window.addEventListener('load', () => {
   })
 
   // MUTE FUNCTION
-  muteBtn.addEventListener('click', () => {audio.pause()})
+  muteBtn.addEventListener('click', () => {
+    audio.pause()
+    muteBtn.filter = 'grayscale(0)'
+  })
 
 })
