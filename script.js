@@ -19,6 +19,7 @@ window.addEventListener('load', () => {
 
   // SOUND INFO
   const audio = new Audio("./media/Justin Mahar - Pumped.mp3")
+  isMuted = false;
   audio.loop = true;
 
   // PADDLE INFO
@@ -116,22 +117,15 @@ window.addEventListener('load', () => {
 
     checkCollision() {
         // if a ball touches a brick
-        if (ballX - ballRadius < this.x + this.width &&
-          ballX > this.x &&
-          ballY - ballRadius < this.y + this.height &&
-          ballY > this.y) {
+        if (!(ballX - ballRadius > this.x + this.width
+            || ballX + ballRadius < this.x
+            || ballY - ballRadius > this.y + this.height
+            || ballY + ballRadius < this.y)
+          ) {
               ballSpeedX *= -1
               ballSpeedY *= -1
               score += 1
               this.counter -=1
-
-              // Conditions to fix bugs on collision
-              if (ballSpeedX > 0){
-                ballX -=1
-              }
-              if (ballSpeedX < 0){
-                ballX +=1
-              }
         }
       
     }
@@ -186,9 +180,11 @@ window.addEventListener('load', () => {
     bricks = newArray
 
     // When the ball touches the paddle, create a new row of bricks + increase speed
-    if (ballY > paddleY - ballRadius &&
-        ballX > paddleX &&
-        ballX < paddleX + paddleWidth) {
+    if (!(ballX - ballRadius > paddleX + paddleWidth
+      || ballX + ballRadius < paddleX
+      || ballY - ballRadius > paddleY + paddleHeight
+      || ballY + ballRadius < paddleY)
+      ) {
 
           ballSpeedX= ballSpeedX*1.03
           ballSpeedY= ballSpeedY*1.03
@@ -219,13 +215,14 @@ window.addEventListener('load', () => {
     if (ballX > canvas.width - ballRadius) {
       ballSpeedX *= -1
     }
-    // Ball bounces off paddle
-    if (ballY > paddleY - ballRadius &&
-        ballX > paddleX &&
-        ballX < paddleX + paddleWidth) {
-      ballSpeedY *= -1
-      ballY -= 2
-      }
+      // Ball bounces off paddle
+    if (!(ballX - ballRadius > paddleX + paddleWidth
+      || ballX + ballRadius < paddleX
+      || ballY - ballRadius > paddleY + paddleHeight
+      || ballY + ballRadius < paddleY)
+      ) {
+    ballSpeedY *= -1
+    }
     // Ball bounces off left wall
     if (ballX < ballRadius) {
       ballSpeedX *= -1
@@ -270,7 +267,6 @@ window.addEventListener('load', () => {
       ctx.font = '48px sans-serif'
       ctx.fillText('GAME OVER', canvas.width / 2 - 150, canvas.height / 2.5)
       restartBtn.style.display = 'block'
-      audio.pause()
     } else {
       animateId = requestAnimationFrame(animate)
     }
@@ -281,7 +277,7 @@ window.addEventListener('load', () => {
     startPage.style.display = 'none'
     canvas.style.display = 'block'
     muteBtn.style.display = 'block'
-    muteBtn.filter = 'grayscale(60%)'
+    muteBtn.style.filter = 'grayscale(60%)'
     animate()
     
   }
@@ -335,8 +331,14 @@ window.addEventListener('load', () => {
 
   // MUTE FUNCTION
   muteBtn.addEventListener('click', () => {
-    audio.pause()
-    muteBtn.filter = 'grayscale(0)'
+    isMuted = !isMuted
+    if(isMuted) {
+      audio.pause()
+      muteBtn.display.filter = 'grayscale(0)'
+    } else {
+      audio.play()
+      muteBtn.display.filter = 'grayscale(60%)'
+    }  
   })
 
 })
