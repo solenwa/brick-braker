@@ -14,10 +14,10 @@ window.addEventListener('load', () => {
   
   // BACKGROUND INFO
   const bgImg = new Image()
-  bgImg.src = './images/background.jpg'
+  bgImg.src = './media/background.jpg'
 
   // SOUND INFO
-  const audio = new Audio("./Justin Mahar - Pumped.mp3")
+  const audio = new Audio("./media/Justin Mahar - Pumped.mp3")
   audio.loop = true;
 
   // PADDLE INFO
