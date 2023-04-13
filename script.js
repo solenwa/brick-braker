@@ -167,9 +167,10 @@ window.addEventListener('load', () => {
             console.log('Game Over: a brick touched the floor')
         }
         // if a brick touches the paddle 
-        else if (brick.y >= paddleY &&
-            brick.x > paddleX &&
-            brick.x < paddleX + paddleWidth) {
+        else if (!(brick.x > paddleX + paddleWidth
+              || brick.x + brick.width < paddleX
+              || brick.y + brick.height < paddleY
+              || brick.y < paddleY)) {
                 gameOver = true 
                 console.log('Game Over: a brick touched the paddle')
         }
@@ -217,6 +218,7 @@ window.addEventListener('load', () => {
     // Ball bounces off right wall
     if (ballX > canvas.width - ballRadius) {
       ballSpeedX *= -1
+      ballX -= 1;
     }
       // Ball bounces off paddle
     if (!(ballX - ballRadius > paddleX + paddleWidth
