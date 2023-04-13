@@ -8,14 +8,17 @@ window.addEventListener('load', () => {
   const startBtn = document.querySelector('#start')
   const restartBtn = document.querySelector('#restart')
   const muteBtn = document.querySelector('#mute-button')
+  const pauseBtn = document.querySelector('#pause-button')
 
   canvas.style.display = 'none'
   restartBtn.style.display = 'none'
   muteBtn.style.display = 'none'
+  pauseBtn.style.display = 'none'
   
   // BACKGROUND INFO
   const bgImg = new Image()
   bgImg.src = './media/Space Background.png'
+  isPaused = false
 
   // SOUND INFO
   const audio = new Audio("./media/Justin Mahar - Pumped.mp3")
@@ -217,11 +220,10 @@ window.addEventListener('load', () => {
     }
       // Ball bounces off paddle
     if (!(ballX - ballRadius > paddleX + paddleWidth
-      || ballX + ballRadius < paddleX
-      || ballY - ballRadius > paddleY + paddleHeight
-      || ballY + ballRadius < paddleY)
-      ) {
-    ballSpeedY *= -1
+        || ballX + ballRadius < paddleX
+        || ballY - ballRadius > paddleY + paddleHeight
+        || ballY + ballRadius < paddleY) ) {
+      ballSpeedY *= -1
     }
     // Ball bounces off left wall
     if (ballX < ballRadius) {
@@ -277,6 +279,7 @@ window.addEventListener('load', () => {
     startPage.style.display = 'none'
     canvas.style.display = 'block'
     muteBtn.style.display = 'block'
+    pauseBtn.style.display = 'block'
     animate()
     
   }
@@ -338,6 +341,18 @@ window.addEventListener('load', () => {
       audio.play()
       muteBtn.setAttribute("style", "filter: brightness(0.5)")
     }  
+  })
+
+  // PAUSE FUNCTION
+  pauseBtn.addEventListener('click', () => {
+    isPaused = !isPaused
+    if(isPaused){
+      cancelAnimationFrame(animateId)
+      pauseBtn.setAttribute("style", "filter: brightness(1)")
+    } else {
+      requestAnimationFrame(animate)
+      pauseBtn.setAttribute("style", "filter: brightness(0.5)")
+    }
   })
 
 })

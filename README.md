@@ -1,7 +1,7 @@
 <strong>A brick breaker game</strong>
 
 <strong>Description</strong>
-In this brick-breaker game, the player can move a paddle horizontally in order to break some bricks with a ball. Each brick has 4 level of strength before it disappears completely. You lose if the ball is dropped or if a brick reaches the floor. Reach the highest score!
+In this brick-breaker game, the player can move a paddle horizontally in order to break some bricks with a ball. Each brick has 4 levels of strength before it disappears completely. You lose if the ball is dropped or if a brick reaches the floor. Reach the highest score!
 
 <strong>MVP</strong>
 - a paddle that moves horizontally

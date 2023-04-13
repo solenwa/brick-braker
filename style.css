@@ -56,18 +56,37 @@ canvas {
     
 }
 
-#audio-info {
-    position: absolute;
+#options-info {
+    display: flex;
+    align-items: center;
+    position: relative;
     z-index: 9;
-    top: 2.5%;
-    right: 30%;
-    width: 100px;
-    height: 100px;
+    top: -92vh;
+    right: -12vw;
+    width: 10vw;
+    height: 2vh;
+    
 }
 
 #mute-button {
     border: none;
     background-color: black;
     filter: brightness(0.5);
+}
+
+#mute-button img {
+    height: auto;
+    width: 90%;
+}
+
+#pause-button {
+    border: none;
+    background-color: black;
+    filter: brightness(0.5); 
+}
+
+#pause-button img {
+    height: auto;
+    width: 60%; 
 }
 
