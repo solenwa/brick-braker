@@ -351,6 +351,9 @@ window.addEventListener('load', () => {
     if(isPaused){
       cancelAnimationFrame(animateId)
       pauseBtn.setAttribute("style", "filter: brightness(1)")
+      ctx.fillStyle = 'white'
+      ctx.font = '48px sans-serif'
+      ctx.fillText('PAUSE', canvas.width / 2.8, canvas.height / 2)
     } else {
       requestAnimationFrame(animate)
       pauseBtn.setAttribute("style", "filter: brightness(0.5)")
